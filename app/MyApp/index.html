@@ -30,6 +30,7 @@
       DEPENDENCIES
     -->
 
+    <!-- start minify 0 app/vendor.js -->
     <script src="vendor/Spin.js"></script>
     <script src="vendor/jquery-1.7.2.js"></script>
     <script src="vendor/jquery-ui.js"></script>
@@ -76,6 +77,7 @@
     <script src="vendor/CryptoJS/rollups/sha1.js"></script> -->
     <script type="text/javascript" src="vendor/jshash-2.2/md5-min.js"></script>
 
+    <!-- end minify 0 app/vendor.js -->
 
     <!--<script type="text/javascript" src="vendor/html5lightbox/jquery.js"></script>-->
 
@@ -83,14 +85,13 @@
     <!-- html-templates -->
     <link rel="text" href="app/templates/templates.txt"/>
 
-    <!-- App -->
     <script src="app/App.js"></script>
 
-    <!-- App-Router -->
     <script src="app/Router.js"></script>
 
     <!-- app-models -->
 
+    <!-- start minify 1 app/models.js -->
     <script src="app/models/Resource.js"></script>
     <script src="app/models/Group.js"></script>
     <script src="app/models/Assignment.js"></script>
@@ -127,8 +128,10 @@
     <script src='app/models/Survey.js'></script>
     <script src='app/models/Question.js'></script>
     <script src='app/models/AdminMember.js'></script>
+    <!-- end minify 1 app/models.js -->
 
     <!-- App Collection  -->
+    <!-- start minify 2 app/collections.js -->
     <script src="app/collections/listRCollection.js"></script>
     <script src="app/collections/Groups.js"></script>
     <script src="app/collections/coursesteps.js"></script>
@@ -176,7 +179,9 @@
     <script src='app/collections/SurveyAnswers.js'></script>
     <script src='app/collections/AdminMembers.js'></script>
 
+    <!-- end minify 2 app/collections.js -->
     <!-- app-Views -->
+    <!-- start minify 3 app/views.js -->
     <script src="app/views/ConfigurationView.js"></script>
     <script src="app/views/listSyncDbView.js"></script>
     <script src="app/views/MemberLoginForm.js"></script>
@@ -290,6 +295,7 @@
     <script src="app/views/CreditsRow.js"></script>
     <script src="app/views/CourseCreditsMainPage.js"></script>
     <script src="app/views/CourseLearnersList.js"></script>
+    <!-- end minify 3 app/views.js -->
     <!-- javaScript -->
 
     <script src='indexFile.js'></script>
