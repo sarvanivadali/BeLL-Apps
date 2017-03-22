@@ -1,0 +1,362 @@
+/**************************************************************************************************************
+
+Step 1 : Setup Members for the course  (Documents : members)
+Step 2 : Setup courses  (Documents : courses)
+Step 3 : Setup steps taken for courses  (Documents : coursestep)
+Step 4 : Setup questions for courses  (Documents : coursequestion)
+			questions type are :
+			**Multiple Choice
+			**Comment/Essay Box
+			**Attachment
+			**Single Textbox
+Step 5 : question_id field should be update (Documents : coursestep)
+Step 6 : Setup answers according to the questions type (Documents : courseanswer)
+Step 7 : Setup progress for each member (Documents : membercourseprogress)
+
+****************************************************************************************************************/
+
+var sys = require('sys')
+var fs = require('fs')
+var exec = require('child_process').exec;
+var program = require('commander');
+var databases = []
+program
+    .version('0.0.2')
+    .parse(process.argv);
+if (!program.args[0]) return console.log('No CouchDB URL provided. Quiting now.')
+var couchUrl = program.args[0]
+var nano = require('nano')(couchUrl)
+
+function start() {
+    increaseLimits()
+}
+
+// Increase Limits so couchapp push works correctly
+function increaseLimits() {
+    exec('sudo launchctl limit maxfiles 150056 150056', function doneWithLaunchCtl() {
+        exec('sudo ulimit -n 150056', function doneWithUlimit() {
+            return createDummyCourses()
+        })
+    })
+}
+
+var member_id = [];
+var course_id = [];
+var courseStep_id = [];
+var	courseStep_rev = [];
+var question_id = [];
+var bodylist = [];
+var defaultMember = [];
+var defaultCourses = [];
+var defaultCoursestep = [];
+var defaultCoursequestion = [];
+var defaultCourseAnswer = [];
+var defaultMemberCourseProgress = [];
+var defaultUpdateCourse = [];
+var defaultAssignmentPaper = [];
+var n = 1; // Number of Iteration
+
+function createDummyCourses() {
+	//Step 1
+	nano.db.get('members', function(err, body) {
+		if (err) console.log(err)
+		//First you need to create Member:
+		var members = nano.db.use('members');
+		for(member = 0; member < n; member++){
+			member_number = member + 1;
+			defaultMember.push({
+				"login": "member" + member_number,
+				"kind": "Member",
+				"roles": ["Learner"],
+				"firstName": "Member " + member_number,
+				"lastName": "Member " + member_number,
+				"password": "password",
+				"Gender": "Male",
+				"status": "active",
+				"email": "member" + member_number + ".somalia@olebell.org",
+				"visits": 0
+			});
+		}
+		
+		members.bulk({"docs":defaultMember}, function(err, res) {
+			if (err)
+                return console.log(err);
+            else {
+				console.log("Member has been inserted");
+				for(var i in res){
+					member_id[i] = res[i].id;
+				}
+				var courses = nano.db.use('courses');
+				var defaultCourses = [];
+				for(course = 0; course < n; course++){
+					course_number = course + 1;
+					var subjectLevel;
+					if ( course <=3){
+						subjectLevel = "Amateur";
+					}else if(course>=4 && course<=8){
+						subjectLevel = "Mid";
+					}else{
+						subjectLevel = "Beginner";
+					}
+					defaultCourses.push({
+						"CourseTitle": "Course " +course_number,
+						"Day": "0",
+						"backgroundColor": "",
+						"courseLeader": "",
+						"description": "This is Course " +course_number+" .",
+						"endDate": "12/12/2017",
+						"endTime": "17:00",
+						"foregroundColor": "",
+						"gradeLevel": "1",
+						"kind": "Course",
+						"languageOfInstruction": "English",
+						"location": "Alberta",
+						"memberLimit": "20",
+						"members": "",
+						"method": "Theory and Practical",
+						"name": "Course " +course_number,
+						"startDate": "01/01/2017",
+						"startTime": "10:00",
+						"subjectLevel": subjectLevel
+					});
+				}
+				
+				//insert into courses
+				courses.bulk({"docs":defaultCourses}, function(err, res) {
+					if (err)
+						return console.log(err);
+					else {
+						console.log("Courses has been inserted");
+						var coursestep = nano.db.use('coursestep');
+						for(var i in res){
+							course_id[i] = res[i].id;
+							//Step 2.
+							defaultCoursestep.push({
+								"courseId": course_id[i],
+								"description": "This is course step "+parseInt(i)+1,
+								"kind": "Course Step",
+								"passingPercentage": "30",
+								"questionslist": "",
+								"resourceId": "",
+								"resourceTitles": "",
+								"step": "1",
+								"stepGoals": "Knowledge",
+								"stepMethod": "Theory",
+								"title": "Course Step "+ parseInt(i)+1,
+								"totalMarks": "100"
+							});
+						}
+						//insert into coursestep
+						coursestep.bulk({"docs":defaultCoursestep}, function(err, res) {
+							if (err)
+								return console.log(err);
+							else {
+								console.log("CourseStep has been inserted");
+								for(var i in res){
+									courseStep_id[i] = res[i].id;
+									courseStep_rev[i] = res[i].rev;
+									//Step 3
+									var coursequestion = nano.db.use('coursequestion');
+									if (i <=3){
+										statement = "Multiple Choice";
+									}else if(i>=4 && i<=6){
+										statement = "Comment/Essay Box";
+									}else if(i>=6 && i<=8){
+										statement = "Attachment";
+									}else{
+										statement = "Single Textbox";
+									}
+									switch(statement){
+										case "Multiple Choice" : defaultCoursequestion.push({
+																	"CorrectAnswer":  [
+																						   "A",
+																						   "B"
+																						],
+																	"Options": [
+																				   "A",
+																				   "B",
+																				   "C",
+																				   "D"
+																				],
+																	"Statement": "Question "+ parseInt(i)+1 +" ?",
+																	"Type": statement,
+																	"courseId": course_id[i].id,
+																	"kind": "coursequestion",
+																	"stepId" : courseStep_id[i],
+																	"Marks" : 90
+																});
+																break;
+										case "Comment/Essay Box" : defaultCoursequestion.push({
+																		"Statement": "Question "+ parseInt(i)+1 +" ?",
+																		"Type": statement,
+																		"courseId": course_id[i].id,
+																		"kind": "coursequestion",
+																		"stepId" : courseStep_id[i],
+																		"Marks" : 90
+																	});
+																	break;
+										case "Attachment" : defaultCoursequestion.push({
+																		"Statement": "Question "+ parseInt(i)+1 +" ?",
+																		"Type": statement,
+																		"courseId": course_id[i].id,
+																		"kind": "coursequestion",
+																		"stepId" : courseStep_id[i],
+																		"Marks" : 90
+																	});
+																	break;		
+										case "Single Textbox" : defaultCoursequestion.push({
+																		"Statement": "Question "+ parseInt(i)+1 +" ?",
+																		"Type": statement,
+																		"courseId": course_id[i].id,
+																		"kind": "coursequestion",
+																		"stepId" : courseStep_id[i],
+																		"Marks" : 90
+																	});
+																	break;												
+									}
+									
+								}
+								//insert into coursequestion
+								coursequestion.bulk({"docs":defaultCoursequestion}, function(err, res) {
+									if (err)
+										return console.log(err);
+									else {
+										console.log("CourseQuestion has been inserted");
+										for(var i in res){
+											question_id[i] = res[i].id;
+											//Step 4 : update coursestep
+											coursestep.get(courseStep_id[i],  function(err, body) {
+												if (err)
+													return console.log(err);
+												else {
+													defaultUpdateCourse.push(
+															body
+													);
+													for(k in defaultUpdateCourse){
+														defaultUpdateCourse[k].questionslist =[question_id[k]];
+													}
+													coursestep.bulk({"docs":defaultUpdateCourse},  function(err, body) {
+														if (err)
+															return console.log(err);
+													});
+												}
+											});
+										}
+										//Step 5
+										for(var i in res){
+											if (i <=3){
+												statement = "Multiple Choice";
+											}else if(i>=4 && i<=6){
+												statement = "Comment/Essay Box";
+											}else if(i>=6 && i<=8){
+												statement = "Attachment";
+											}else{
+												statement = "Single Textbox";
+											}
+											switch(statement)
+											{
+													case "Multiple Choice" : defaultCourseAnswer.push({
+																					"Answer":  [
+																								   "A",
+																								   "B"
+																								],
+																					"MemberID": member_id[i],
+																					"Obtain Marks": "70",
+																					"QuestionID": question_id[i],
+																					"StepID": courseStep_id[i],
+																					"kind": "courseanswer",
+																					"pqattempts": "1"
+																				});
+																			break;
+													case "Comment/Essay Box" : defaultCourseAnswer.push({
+																					"Answer":  "Answer",
+																					"MemberID": member_id[i],
+																					"Obtain Marks": "75",
+																					"QuestionID": question_id[i],
+																					"StepID": courseStep_id[i],
+																					"kind": "courseanswer",
+																					"pqattempts": "1"
+																			});
+																			break;
+													case "Attachment" : defaultCourseAnswer.push({
+																					"Answer":  "Answer",
+																					"MemberID": member_id[i],
+																					"Obtain Marks": "75",
+																					"QuestionID": question_id[i],
+																					"StepID": courseStep_id[i],
+																					"kind": "courseanswer",
+																					"pqattempts": "1"	
+																			});															
+																			break;					
+													case "Single Textbox" : defaultCourseAnswer.push({
+																					"Answer":  "Answer",
+																					"MemberID": member_id[i],
+																					"Obtain Marks": "60",
+																					"QuestionID": question_id[i],
+																					"StepID": courseStep_id[i],
+																					"kind": "courseanswer",
+																					"pqattempts": "1"	
+																			});															
+																			break;			
+											}
+										}
+										//insert into courseanswer
+										if(defaultCourseAnswer.length > 0){
+											var courseanswer = nano.db.use('courseanswer');
+											courseanswer.bulk({"docs":defaultCourseAnswer}, function(err, res){
+												if(err){
+													return console.log(err);
+												}else{
+													console.log("CourseAnswer has been inserted");
+													//Step 6
+													for(var i in res){
+														defaultMemberCourseProgress.push({
+															"courseId":  course_id[i],
+															"kind": "course-member-result",
+															"memberId": member_id[i],
+															"pqAttempts": [
+																			   1
+																			],
+															"stepsIds": [courseStep_id[i]],
+															"stepsResult": [
+																			   [
+																				   null,
+																				   "56"
+																			   ]
+																			],
+															"stepsStatus": [
+																			   [
+																				   null,
+																				   "1"
+																			   ]
+																			]
+														});
+													}
+													//insert into membercourseprogress
+													var membercourseprogress = nano.db.use('membercourseprogress');
+													membercourseprogress.bulk({"docs":defaultMemberCourseProgress}, function(err, res){
+														if(err){
+															return console.log(err);
+														}else{
+															console.log("MemberCourseProgress has been inserted");
+														}
+													});
+												}
+											});
+										}
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		});
+	});
+}
+
+//
+// Trigger Start 
+//
+
+start()
