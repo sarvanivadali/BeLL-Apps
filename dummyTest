@@ -41,6 +41,8 @@ function increaseLimits() {
 }
 
 var member_id = [];
+var manager_id = [];
+var total_member_id = [];
 var course_id = [];
 var courseStep_id = [];
 var	courseStep_rev = [];
@@ -54,7 +56,7 @@ var defaultCourseAnswer = [];
 var defaultMemberCourseProgress = [];
 var defaultUpdateCourse = [];
 var defaultAssignmentPaper = [];
-var n = 1; // Number of Iteration
+var n = 10; // Number of Iteration
 
 function createDummyCourses() {
 	//Step 1
@@ -64,18 +66,35 @@ function createDummyCourses() {
 		var members = nano.db.use('members');
 		for(member = 0; member < n; member++){
 			member_number = member + 1;
-			defaultMember.push({
-				"login": "member" + member_number,
-				"kind": "Member",
-				"roles": ["Learner"],
-				"firstName": "Member " + member_number,
-				"lastName": "Member " + member_number,
-				"password": "password",
-				"Gender": "Male",
-				"status": "active",
-				"email": "member" + member_number + ".somalia@olebell.org",
-				"visits": 0
-			});
+			if(member<=4){
+				defaultMember.push({
+					"login": "member" + member_number,
+					"kind": "Member",
+					"roles": ["Manager"],
+					"firstName": "Member " + member_number,
+					"lastName": "Member " + member_number,
+					"password": "password",
+					"Gender": "Male",
+					"status": "active",
+					"email": "member" + member_number + ".somalia@olebell.org",
+					"visits": 0,
+					"BirthDate": "01/01/1985"
+				});
+			}else{
+				defaultMember.push({
+					"login": "member" + member_number,
+					"kind": "Member",
+					"roles": ["Learner"],
+					"firstName": "Member " + member_number,
+					"lastName": "Member " + member_number,
+					"password": "password",
+					"Gender": "Male",
+					"status": "active",
+					"email": "member" + member_number + ".somalia@olebell.org",
+					"visits": 0,
+					"BirthDate": "01/01/1985"
+				});
+			}
 		}
 		
 		members.bulk({"docs":defaultMember}, function(err, res) {
@@ -85,7 +104,21 @@ function createDummyCourses() {
 				console.log("Member has been inserted");
 				for(var i in res){
 					member_id[i] = res[i].id;
+					members.get(member_id[i],  function(err, body) {
+						if (err)
+							return console.log(err);
+						else {
+							for(var j in body){
+								for(k in body.roles){
+									var roles = body.roles;
+									if(roles == 'Manager')
+										manager_id = body._id;
+								}
+							}
+						}
+					});
 				}
+				total_member_id = member_id.concat(manager_id);
 				var courses = nano.db.use('courses');
 				var defaultCourses = [];
 				for(course = 0; course < n; course++){
@@ -112,7 +145,7 @@ function createDummyCourses() {
 						"languageOfInstruction": "English",
 						"location": "Alberta",
 						"memberLimit": "20",
-						"members": "",
+						"members": total_member_id,
 						"method": "Theory and Practical",
 						"name": "Course " +course_number,
 						"startDate": "01/01/2017",
