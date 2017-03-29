@@ -8,28 +8,14 @@
 
   tylesheet" href="app/morris.css"/>
   <link rel="stylesheet" href="app/jqueryui.css"/>
-  <link rel="stylesheet" href="app/Home-Urdu.css" type="text/css">
   <link rel="stylesheet" href="app/Home.css"/>
   <link rel="stylesheet" href="app/tabl.css"/>
-
-
-  <link rel="stylesheet" href="vendor/jquery.timepicker.css"/>
-  <link rel="stylesheet" href="vendor/jquery-ui-1.10.3.custom.css"/>
-  <link rel="stylesheet" href="vendor/backbone-ui.css"/>
-
-
-  <link rel="stylesheet" href="vendor/jQuery-multiselect/jquery.multiselect.filter.css"/>
-  <link rel="stylesheet" href="vendor/jQuery-multiselect/jquery.multiselect.css"/>
-
-
 
 
   <!--
     DEPENDENCIES
   -->
-	<script src="vendor/Spin.js"></script>
-  <script src="vendor/jquery-1.7.2.js"></script>
-  <script src="vendor/spectrum.js"></script>
+	<script src="vendor/jquery-1.7.2.js"></script>
   <script src="vendor/underscore-1.4.4.js"></script>
   <script src="vendor/backbone-1.0.0.js"></script>
   <script src="vendor/backbone-forms.js"></script>
@@ -46,97 +32,30 @@
   <script src="vendor/jquery.url.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.js"></script>
   <script src="vendor/jquery.raty.js"></script>
-  <script src="vendor/raphael.js"></script>
-  <script src="vendor/morris.js"></script>
-  <script src="vendor/jquery.timepicker.js"></script>
-  <script src="vendor/jquery-ui-1.10.3.custom.js"></script>
-  <script src="vendor/jquery-ui.multidatespicker.js"></script>
- <script src="jquery.popupoverlay.js"></script>
 
-  
       <!-- -->
   <script src="app/App.js"></script>
-      
-      
+
+
     <!-- Models  -->
-     <script src="app/models/NationApplication.js"></script>
      <script src="app/models/Nation.js"></script>
-     <script src="app/models/Configuration.js"></script>
-     <script src="app/models/Community.js"></script>
      <script src="app/models/Credentials.js"></script>
-     <script src="app/models/Member.js"></script>
-     <script src="app/models/report.js"></script>
-     <script src="app/models/NationReport.js"></script>
-     <script src="app/models/request.js"></script>
-     <script src="app/models/NationReportComment.js"></script>
-     <script src="app/models/Publication.js"></script>
-    
-      <script src="app/models/Resource.js"></script>
-      <script src="app/models/Course.js"></script>
-     
+
       <!-- Collections  -->
-     <script src="app/collections/NationApplicationsCollection.js"></script>
      <script src="app/collections/Nations.js"></script>
-     <script src="app/collections/Configurations.js"></script>
-     <script src="app/collections/Community.js"></script>
-     <script src="app/collections/MailUnopened.js"></script>
-     <script src="app/collections/siteFeedbacks.js"></script>
-     <script src="app/collections/Reports.js"></script>
-     <script src="app/collections/Publication.js"></script>
-     <script src="app/collections/CourseRequest.js"></script>
-     <script src="app/collections/ResourceRequest.js"></script>
-     <script src="app/collections/NationReportComments.js"></script>
-     <script src="app/collections/Courses.js"></script>
-     <script src="app/collections/Resources.js"></script>
-     <script src="app/collections/Members.js"></script>
-     
-     
-     
+
+
      <!-- Views  -->
 
-     <script src="app/views/MemberForm.js"></script>
+     <script src="app/views/NationRow.js"></script>
      <script src="app/views/NationsTable.js"></script>
      <script src="app/views/NationForm.js"></script>
-     <script src="app/views/CommunityForm.js"></script>
-     <script src="app/views/ConfigurationView.js"></script>
      <script src="app/views/navBarView.js"></script>
      <script src="app/views/MemberLoginForm.js"></script>
 
-     <script src="app/views/NationTable.js"></script>
-     <script src="app/views/NationRow.js"></script>
 
 
-    <script src="app/views/Dashboard.js"></script> 
-    <script src="app/views/siteFeedback.js"></script>
-    <script src="app/views/siteFeedbackPage.js"></script>
-    <script src="app/views/siteFeedbackPageRow.js"></script>
-    <script src="app/views/ReportsRow.js"></script>
-    <script src="app/views/Publication.js"></script>
-    <script src="app/views/PublicationTable.js"></script>
-    <script src="app/views/PublicationRow.js"></script>
-    <script src="app/views/ReportsTable.js"></script>
-    <script src="app/views/ReportForm.js"></script>
-  	<script src="app/views/PublicationResourceTable.js"></script>
-    <script src="app/views/PublicationResourceRow.js"></script>
-    <script src="app/views/PublicationForm.js"></script>
-    <script src="app/views/RequestsTable.js"></script>
-    <script src="app/views/RequestRow.js"></script>
-	<script src="app/views/NationReportCommentView.js"></script>
-	<script src="app/views/listCommunityView.js"></script>
-  	<script src="app/views/CourseView.js"></script>
-  	<script src="app/views/CoursesTable.js"></script>
-  	<script src="app/views/CourseRow.js"></script>
-  	<script src="app/views/listSyncDbView.js"></script>
-  	<script src="app/views/courseSeach.js"></script>
-  	<script src="app/views/PublicationCoursesTable.js"></script>
-  	<script src="app/views/PublicationCourseRow.js"></script>
-  <script src="app/views/NationApplicationView.js"></script>
-  <script src="app/views/PendingNationApplicationsView.js"></script>
-  <script src="app/views/NationApplicationRow.js"></script>
-  <script src="app/views/NationApplicationsTable.js"></script>
-
-  	
-  	<script src="app/Router.js"></script>
+    <script src="app/Router.js"></script>
      App.Views.CourseRow
 
   <script type="text/template" id="template-addNation">
@@ -275,26 +194,26 @@
           				<span></span>
           		 </div>
           		 <div class='login-input' style='padding-top:20px' id='submit-button'>
-          		 
+
           		 </div>
           </form>
          <img id="glob_img" src="img/earth_glob.png" alt="Smiley face" >
         </div>
      </div>
     </script>
-     
-    <script type="text/template" id="template-app">  
-    
+
+    <script type="text/template" id="template-app">
+
     <div id="debug">
 		<div id="comments">
-			
-		</div>    
 
-   
+		</div>
+
+
     </div>
 <div id="invitationSuperDiv">
   	 	<div id="invitationdiv" style="display: block;">
-  	 	
+
   	 	</div>
 </div>
        <div class="takeQuizDiv" id="tQuizDiv"></div>
@@ -302,37 +221,37 @@
        <div class="navbar navbar-inverse" id="top-nav">
      	 <div class="navbar-header">
      	 	<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
-     	 </div>    
-     	  <div class="navbar-collapse collapse" id="nav-collapse-01">   
-     	 </div>      
+     	 </div>
+     	  <div class="navbar-collapse collapse" id="nav-collapse-01">
+     	 </div>
       </div>
-	
+
       <!-- Body -->
-      
+
       <div class="container body" id="main-body">
          <!-- Content -->
       </div>
-     
+
    </script>
-   
+
    <script type="text/html" id="template-CourseRow">
     <td>
        <%= CourseTitle %>
-    </td> 
+    </td>
 
     <td>
-        <a role='button' class='btn btn-inverse addtoPublication' name='<%=_id %>'> 
+        <a role='button' class='btn btn-inverse addtoPublication' name='<%=_id %>'>
          Add
        </a>
     </td>
     <td>
-      
+
     </td>
   </script>
-   
-   
+
+
    <script type="text/html" id="template-publication-CourseRow">
-   
+
    <td>
         <span style="font-weight:700;color:grey; font-size:16px;"><%= CourseTitle %></BR></span>
   </td>
@@ -343,25 +262,25 @@
       </td>
 
   </script>
-  
-   <script type="text/template" id="template-nav-log-in"> 
-    <li> 
+
+   <script type="text/template" id="template-nav-log-in">
+    <li>
       <a href="#login">
       Earth BeLL - v1.0.7
       </a>
     </li>
-    <li> 
+    <li>
       <a href="#member/add">
       Become A Member
       </a>
     </li>
-    
-    <li  style="float:right;"> 
+
+    <li  style="float:right;">
       <a onclick = "showFeedbackForm()">
         Feedback
       </a>
     </li>
-    
+
   </script>
 
   <script type="text/template" id="template-nav-logged-in">
@@ -421,10 +340,10 @@
       </li>
   </script>
 
-  <script type="text/template" id="template-Publication"> 
+  <script type="text/template" id="template-Publication">
 
-    <p class='heading' style="font-size: 20px;"> 
-       <h3>Publications 
+    <p class='heading' style="font-size: 20px;">
+       <h3>Publications
          <a href='#publication/add' class="btn btn-success publicationFont">Add Issue</a>
        </h3>
     </p>
@@ -446,24 +365,24 @@
 					<div class="name"></div>
 					<div class="visits">  </div>
 			 </td>
-			 <td class="right">	
+			 <td class="right">
 					<div class="now" ></div>
-			 </td>	
+			 </td>
 			</tr>
-		</table>	
+		</table>
 		<table class="table">
 		<tr>
 		<td>
 		<table class="table table-striped" id="communities">
 		<th >Recently Added Communities</th>
-		
+
 		</table>
 		</td>
 		<td >
 		<table class="table table-striped" id="publications">
 		<th>New Issues of Publications</th>
-		
-		
+
+
 		</table>
 		</td>
 		<td>
@@ -484,7 +403,7 @@
 		Request 3
 		</td>
 		</tr>
-		
+
 		<tr>
 		<td>
 		<button class="btn btn-default" id="clickmore" onclick = "document.location.href='#request'">Click for more</button>
@@ -510,7 +429,7 @@
 		Database 3
 		</td>
 		</tr>
-		
+
 		<tr>
 		<td>
 		<button class="btn btn-default" id="clickmore">Click for more</button>
@@ -536,24 +455,24 @@
 		Report 3
 		</td>
 		</tr>
-		
+
 		<tr>
 		<td>
 		<button class="btn btn-default" id="clickmore"  onclick = "document.location.href='#reports'">Click for more</button>
 		</td>
 		</tr>
 		</table>
-		
+
 		</td>
 		</tr>
 		</table>
       	<a href="#configuration"><button class="btn btn-hg btn-primary" id="configbutton">Configurations</button></a>
 	<!--	<table class="page-bottom-navtable">
 			<tr>
-			
+
 				<td><button class="btn btn-hg btn-primary">Badges</button></td>
 				<td><button class="btn btn-hg btn-primary" onclick = "document.location.href='../personal/index.html#newsfeed'">News Feed</button></td>
-				<td><button class="btn btn-hg btn-primary"  onclick = "document.location.href='../personal/index.html#calendar'">Calender</button></td> 
+				<td><button class="btn btn-hg btn-primary"  onclick = "document.location.href='../personal/index.html#calendar'">Calender</button></td>
 				<td><button class="btn btn-hg btn-primary" onclick = "document.location.href='../personal/index.html#mail'">Email(<%=mails%>)</button></td>
 				<td><button class="btn btn-hg btn-primary" onclick = "document.location.href='#search-bell'">Search Bell</button></td>-->
 				<!-- <td></td> -->
@@ -563,7 +482,7 @@
 		</div>
             </div>
   </script>
-  
+
   <script type="text/template" id="template-Configuration">
  	<h5>&nbsp;&nbsp;Set Nation Language </h5>
  	&nbsp;&nbsp;<select id="languageSelection">
@@ -573,14 +492,14 @@
     	<option value="<%= availableLanguages[i] %>"><%= availableLanguages[i] %> </option>
 	<% } %>
 	</select>
-    <% if ( type == "nation" || type == "Nation") { %> 
+    <% if ( type == "nation" || type == "Nation") { %>
     		<br/><h5>&nbsp;&nbsp;Add Release Notes</h5>
      		&nbsp;&nbsp;<input type="text" placeholder="Enter current ver sion no" id="appversion" style="width:263px;" value="<%= version %>"><br/><br/>
     		&nbsp;&nbsp; <textarea id="notes" style="width:250px;height:119px;"><%= notes %></textarea><br/><br/>
-    
+
     <% } %>
-	
-	
+
+
   </script>
    <!--<script type="text/template" id="template-addCommunity">-->
    <!--<div id='addNation-heading'>-->
@@ -680,17 +599,17 @@
 <script type="text/html" id="template-siteReviewRownoAdmin">
   	 	<%  if(Resolved=="0"){%>
 			<td style="width:80%;"><b>Username:</b> <%=memberLogin%><br/><b>Category:</b> <%=category%><br/><b>Priority:</b> <%=urgent%><br/><b>Url:</b> <%=PageUrl%> <br/><b>Time:</b> <%=time%> <br/><u><b>Comment</b></u><br/><%=comment%></td><td style="text-align:center;">Not resolved<button class="btn btn-primary" id="commentButton" value=<%=_id%>>Comment</button></td>
-	   <%} 
+	   <%}
 		else {%>
 			<td style="width:80%;"><b>Username:</b> <%=memberLogin%><br/><b>Category:</b> <%=category%><br/><b>Priority:</b> <%=urgent%><br/><b>Url:</b> <%=PageUrl%> <br/><b>Time:</b> <%=time%> <br/><u><b>Comment</b></u><br/><%=comment%></td><td style="text-align:center;">Resolved<button class="btn btn-primary" id="commentButton" value=<%=_id%>>Comment</button></td>
 		<%}%>
   </script>
-  
-    
+
+
    <script type="text/html" id="template-siteReviewRowAdmin">
   	 	<%  if(Resolved=="0"){%>
 			<td style="width:80%;"><b>Username:</b> <%=memberLogin%><br/><b>Category:</b> <%=category%><br/><b>Priority:</b> <%=urgent%><br/><b>Url:</b> <%=PageUrl%> <br/><b>Time:</b> <%=time%> <br/><u><b>Comment</b></u><br/><%=comment%></td><td style="text-align:center;"><a class="btn btn-info" modl='+model+' id="resolveButton">Resolve</a><button class="btn btn-primary" id="commentButton" value=<%=_id%>>Comment</button></td>
-	   <%} 
+	   <%}
 		else {%>
 			<td style="width:80%;"><b>Username:</b> <%=memberLogin%><br/><b>Category:</b> <%=category%><br/><b>Priority:</b> <%=urgent%><br/><b>Url:</b> <%=PageUrl%> <br/><b>Time:</b> <%=time%> <br/><u><b>Comment</b></u><br/><%=comment%></td><td style="text-align:center;">Resolved<button class="btn btn-primary" id="commentButton" value=<%=_id%>>Comment</button></td>
 		<%}%>
@@ -700,18 +619,18 @@
     <td>
         <span style="font-weight:900; font-size:16px;"><%= Date %></BR></span>
       </td>
-    
+
     <% if(title){ %>  // Added A View In the Resources Db with Id _Design/Bell had to place title with Null else it gives me ReferenceError
-    
+
     <td>
         <span style="font-weight:900; font-size:16px;"><%= title %></BR></span>
       </td>
-    
+
     <td>
         <span style="font-weight:900; font-size:16px;"><%= author %></BR></span>
       </td>
     </td>
-    
+
        <td>
     <%=views%>
     </td>
@@ -721,11 +640,11 @@
        Open
       </a>
     </td>
- 
+
     <td>
       <button  id="commentButton" class="btn btn-primary" value="<%= _id %>">Comment</button>
     </td>
-   
+
     <td>
     	<%if(isManager>-1){%>
     	<td>
@@ -742,8 +661,8 @@
     </td>
     <%}%>
   </script>
-  
-  
+
+
   <script type="text/html" id="template-PublicationRow">
     <td>
         <span style="font-weight:900; font-size:16px;"><%= Date %></BR></span>
@@ -771,11 +690,11 @@
       </a>
       </td>
   </script>
-  
-  
-  
+
+
+
   <script type="text/html" id="template-ResourceRow">
-  
+
 
   <td>
         <span style="font-weight:700;color:grey; font-size:16px;"><%= title %></BR></span>
@@ -790,12 +709,12 @@
         <i class='icon-remove icon-white'></i> Remove
       </a>
       </td>
-    
+
   </script>
-  
+
 <!-- Requests template -->
 <script type="text/html" id="template-RequestRow">
-    
+
        <td>
     <%=sendFromName%>
     </td>
@@ -805,7 +724,7 @@
     <td>
         <%= request %></BR>
       </td>
-    
+
     <td>
         <%= login %></BR>
       </td>
@@ -829,10 +748,10 @@
     <table class="table table-striped">
       <tr>
       <td colspan="2">
-         
+
         <h2>
           <%= header %>
-        </h2> 
+        </h2>
         </td>
       </tr>
       <tr>
@@ -841,7 +760,7 @@
           <%= form %>
         </td>
       </tr>
-      <tr>    
+      <tr>
       <tr>
         <td>
           <div class="save btn btn-success" name="save">
@@ -855,14 +774,14 @@
       </tr>
     </table>
   </script>
-    
+
     <-- End Of templates -->
-    
+
 </head>
-    
-    
+
+
 <body>
-        
+
 </body>
 <script>
 $(document).ready(function() {
